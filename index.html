@@ -61,28 +61,8 @@
     <!-- FOR THE MAPS TO OPEN NATIVE MAP APP DEPENDING ON THE DEVICE THE VISITOR IS USING -->
     <button id="openMapBtn">Open in Maps</button>
 
-    <!--  LEGACY WITHOUT THE FALLBACK  -->
-<!-- <script>
-  function openMap(lat, lng) {
-    const isAppleDevice = /iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent);
-    const coords = `${lat},${lng}`;
 
-    const mapURL = isAppleDevice
-      ? `maps:/?ll=${coords}`
-      : `https://www.google.com/maps/search/?api=1&query=${coords}`;
-
-    window.open(mapURL, '_blank');
-  }
-
-  document.getElementById('openMapBtn').addEventListener('click', function () {
-    const lat = 37.38237357525533;
-    const lng = -121.89517981964153;
-    openMap(lat, lng);
-  });
-</script> -->
-
-
-<!-- NEW SCRIPT -->
+<!-- NEW SCRIPT COMPATIBLE TO SAFARI BROWSER AND CHROMIUM BROWSERS -->
 
 <script>
   function openMap(lat, lng) {
@@ -119,6 +99,8 @@
     openMap(lat, lng);
   });
 </script>
+
+
 
 <!-- NEW SCRIPT -->
 
