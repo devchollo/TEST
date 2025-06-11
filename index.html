@@ -90,25 +90,21 @@
     const coords = `${lat},${lng}`;
 
     if (isAppleDevice) {
-      const appMapURL = `maps:/?ll=${coords}`;
+      const appMapURL = `maps://?ll=${coords}`;
       const webFallbackURL = `https://maps.apple.com/?ll=${coords}`;
+      const start = Date.now();
 
-      // Create an invisible iframe to attempt to open Apple Maps app
-      const iframe = document.createElement('iframe');
-      iframe.style.display = 'none';
-      iframe.src = appMapURL;
-      document.body.appendChild(iframe);
+      // Try opening Apple Maps
+      window.location.href = appMapURL;
 
-      const fallbackTimeout = setTimeout(() => {
-        window.open(webFallbackURL, '_blank');
-        document.body.removeChild(iframe);
-      }, 1500); // Wait 1.5 seconds
-
-      // Clear timeout if user leaves the page or the app opens to stop triggering webFallbackURL
-      window.addEventListener('blur', () => {
-        clearTimeout(fallbackTimeout);
-        document.body.removeChild(iframe);
-      }, { once: true });
+      // After 1500ms, if still on page, open fallback
+      setTimeout(() => {
+        const now = Date.now();
+        if (now - start < 2000) {
+          // App probably didn't open, fallback
+          window.open(webFallbackURL, '_blank');
+        }
+      }, 1500);
 
     } else {
       // For non-Apple devices, open Google Maps
