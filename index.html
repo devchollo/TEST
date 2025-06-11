@@ -4,8 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+<!-- STYLE FOR SMS OR PHONE CALL OPTION -->
+    <style>
+ 
+    body {
+      font-family: Arial, sans-serif;
+      padding: 50px;
+    }
+
+    .phone-container {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+      color: #007bff;
+      font-weight: bold;
+    }
+
+    .hover-options {
+      position: absolute;
+      top: 10px;
+      left: 0;
+      margin-top: 8px;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      display: none;
+      min-width: 120px;
+      z-index: 10;
+    }
+
+    .hover-options a {
+      display: block;
+      padding: 8px 12px;
+      text-decoration: none;
+      color: #333;
+      transition: background 0.2s ease;
+    }
+
+    .hover-options a:hover {
+      background-color: #f5f5f5;
+    }
+
+    .phone-container:hover .hover-options {
+      display: block;
+    }
+  </style>
+<!-- STYLE FOR SMS OR PHONE CALL OPTION -->
+
+
+
 </head>
 <body>
+
+    <!-- FOR THE MAPS TO OPEN NATIVE MAP APP DEPENDING ON THE DEVICE THE VISITOR IS USING -->
     <button id="openMapBtn">Open in Maps</button>
 
 <script>
@@ -19,14 +72,29 @@
 
     window.open(mapURL, '_blank');
   }
-37.38237357525533, -121.89517981964153
-  // Attach click handler via JS
+
   document.getElementById('openMapBtn').addEventListener('click', function () {
     const lat = 37.38237357525533;
     const lng = -121.89517981964153;
     openMap(lat, lng);
   });
 </script>
+
+<!-- FOR THE MAPS TO OPEN NATIVE MAP APP DEPENDING ON THE DEVICE THE VISITOR IS USING -->
+
+
+<!-- FOR THE SMS OR PHONE CALL OPTION WHEN PHONE NUMBER IS PRESSED -->
+
+
+<div class="phone-container">
+    +1 (555) 123-4567
+    <div class="hover-options">
+      <a href="sms:+15551234567">📩 Send SMS</a>
+      <a href="tel:+15551234567">📞 Call</a>
+    </div>
+  </div>
+
+<!-- FOR THE SMS OR PHONE CALL OPTION WHEN PHONE NUMBER IS PRESSED -->
 
 </body>
 </html>
