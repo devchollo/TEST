@@ -61,9 +61,10 @@
     <!-- FOR THE MAPS TO OPEN NATIVE MAP APP DEPENDING ON THE DEVICE THE VISITOR IS USING -->
     <button id="openMapBtn">Open in Maps</button>
 
-<script>
+    <!--  LEGACY  -->
+<!-- <script>
   function openMap(lat, lng) {
-    const isAppleDevice = /iPhone|iPad|iPod|Macintosh|Safari/.test(navigator.userAgent);
+    const isAppleDevice = /iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent);
     const coords = `${lat},${lng}`;
 
     const mapURL = isAppleDevice
@@ -78,7 +79,53 @@
     const lng = -121.89517981964153;
     openMap(lat, lng);
   });
+</script> -->
+
+
+<!-- NEW SCRIPT -->
+
+<script>
+  function openMap(lat, lng) {
+    const isAppleDevice = /iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent);
+    const coords = `${lat},${lng}`;
+
+    if (isAppleDevice) {
+      const appMapURL = `maps:/?ll=${coords}`;
+      const webFallbackURL = `https://maps.apple.com/?ll=${coords}`;
+
+      // Create an invisible iframe to attempt to open Apple Maps app
+      const iframe = document.createElement('iframe');
+      iframe.style.display = 'none';
+      iframe.src = appMapURL;
+      document.body.appendChild(iframe);
+
+      const fallbackTimeout = setTimeout(() => {
+        window.open(webFallbackURL, '_blank');
+        document.body.removeChild(iframe);
+      }, 1500); // Wait 1.5 seconds
+
+      // Optional: Clear timeout if user leaves the page (i.e., app opened)
+      window.addEventListener('blur', () => {
+        clearTimeout(fallbackTimeout);
+        document.body.removeChild(iframe);
+      }, { once: true });
+
+    } else {
+      // For non-Apple devices, open Google Maps
+      const mapURL = `https://www.google.com/maps/search/?api=1&query=${coords}`;
+      window.open(mapURL, '_blank');
+    }
+  }
+
+  document.getElementById('openMapBtn').addEventListener('click', function () {
+    const lat = 37.38237357525533;
+    const lng = -121.89517981964153;
+    openMap(lat, lng);
+  });
 </script>
+
+<!-- NEW SCRIPT -->
+
 
 <!-- FOR THE MAPS TO OPEN NATIVE MAP APP DEPENDING ON THE DEVICE THE VISITOR IS USING -->
 
@@ -95,6 +142,8 @@
   </div>
 
 <!-- FOR THE SMS OR PHONE CALL OPTION WHEN PHONE NUMBER IS PRESSED -->
+
+
 
 </body>
 </html>
