@@ -65,13 +65,14 @@
 <!-- NEW SCRIPT COMPATIBLE TO SAFARI BROWSER AND CHROMIUM BROWSERS -->
 
 <script>
-  function openMap(lat, lng) {
+  function openMap(address, name) {
     const isAppleDevice = /iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent);
-    const coords = `${lat},${lng}`;
+    const encodedAddress = encodeURIComponent(address);
+    const encodedName = encodeURIComponent(name);
 
     if (isAppleDevice) {
-      const appMapURL = `maps://?ll=${coords}`;
-      const webFallbackURL = `https://maps.apple.com/?ll=${coords}`;
+      const appMapURL = `maps://?q=${encodedName}&address=${encodedAddress}`;
+      const webFallbackURL = `https://maps.apple.com/?q=${encodedName}&address=${encodedAddress}`;
       const start = Date.now();
 
       // Try opening Apple Maps
@@ -88,15 +89,15 @@
 
     } else {
       // For non-Apple devices, open Google Maps
-      const mapURL = `https://www.google.com/maps/search/?api=1&query=${coords}`;
+      const mapURL = `https://www.google.com/maps/search/?q=${encodedName}+${encodedAddress}`;
       window.open(mapURL, '_blank');
     }
   }
 
   document.getElementById('openMapBtn').addEventListener('click', function () {
-    const lat = 37.38237357525533;
-    const lng = -121.89517981964153;
-    openMap(lat, lng);
+    const address = "1150 Murphy Ave, Ste 205, San Jose, CA 95131, United States";
+    const name = "CleverTech";
+    openMap(address, name);
   });
 </script>
 
