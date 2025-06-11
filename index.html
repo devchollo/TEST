@@ -61,7 +61,7 @@
     <!-- FOR THE MAPS TO OPEN NATIVE MAP APP DEPENDING ON THE DEVICE THE VISITOR IS USING -->
     <button id="openMapBtn">Open in Maps</button>
 
-    <!--  LEGACY  -->
+    <!--  LEGACY WITHOUT THE FALLBACK  -->
 <!-- <script>
   function openMap(lat, lng) {
     const isAppleDevice = /iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent);
@@ -104,7 +104,7 @@
         document.body.removeChild(iframe);
       }, 1500); // Wait 1.5 seconds
 
-      // Optional: Clear timeout if user leaves the page (i.e., app opened)
+      // Clear timeout if user leaves the page or the app opens to stop triggering webFallbackURL
       window.addEventListener('blur', () => {
         clearTimeout(fallbackTimeout);
         document.body.removeChild(iframe);
